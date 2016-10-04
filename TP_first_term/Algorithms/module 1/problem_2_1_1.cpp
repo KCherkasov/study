@@ -72,7 +72,7 @@ void find_max_sum_indices(Array<ssize_t>& a_array, Array<ssize_t>& b_array) {
       b_max_index = i;
     }
   }
-  printf("%d %d\n", a_max_index, b_max_index);
+  printf("%d %d", a_max_index, b_max_index);
 }
 
 int main() {
