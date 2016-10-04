@@ -54,27 +54,18 @@ void read_int_array(const size_t& size, Array<ssize_t>& array) {
 }
 
 void find_max_sum_indices(Array<ssize_t>& a_array, Array<ssize_t>& b_array) {
-  if (a_array.empty() || b_array.empty()) {
-    return;
-  }
-  if (a_array.size() != b_array.size()) {
-    return;
-  }
-  size_t a_max_index = a_array.size() - 1;
-  size_t b_max_index = b_array.size() - 1;
-  size_t current_b_max_index = b_max_index;
-  for (ssize_t i = b_array.size() - 2; i >= 0; ++i) {
-    if (b_array[i] >= b_array[current_b_max_index]) {
-      current_b_max_index = i;
+  size_t a_max_index = 0;
+  size_t b_max_index = 0;
+  size_t current_a_max_index = a_max_index;
+  for (size_t i = 1; i < b_array.size(); ++i) {
+    if (a_array[i] > a_array[current_a_max_index]) {
+      current_a_max_index = i;
     }
-    if (a_array[i] >= a_array[a_max_index]) {
-      a_max_index = i;
+    if ((a_array[current_a_max_index] + b_array[i]) > (a_array[a_max_index] + b_array[b_max_index])) {
+      a_max_index = current_a_max_index;
+      b_max_index = i;
     }
-    if (a_array[i] + b_array[current_b_max_index] >= a_array[a_max_index] + b_array[current_b_max_index]) {
-      a_max_index = i;
-      b_max_index = current_b_max_index;
-    }
-  }
+  }  
   printf("%d %d", a_max_index, b_max_index);
 }
 
