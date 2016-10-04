@@ -47,7 +47,7 @@ void Array<T>::push_back(const T& value) {
 
 void read_int_array(const size_t& size, Array<ssize_t>& array) {
   for (size_t i = 0; i < size; ++i) {
-    size_t buffer;
+    ssize_t buffer;
     scanf("%d", &buffer);
     array.push_back(buffer);
   }
@@ -70,7 +70,7 @@ void find_max_sum_indices(Array<ssize_t>& a_array, Array<ssize_t>& b_array) {
     if (a_array[i] >= a_array[a_max_index]) {
       a_max_index = i;
     }
-    if (a_array[i] + b_array[current_b_max_index >= a_array[a_max_index] + b_array[current_b_max_index]) {
+    if (a_array[i] + b_array[current_b_max_index] >= a_array[a_max_index] + b_array[current_b_max_index]) {
       a_max_index = i;
       b_max_index = current_b_max_index;
     }
@@ -80,7 +80,7 @@ void find_max_sum_indices(Array<ssize_t>& a_array, Array<ssize_t>& b_array) {
 
 int main() {
   size_t arrays_size;
-  scanf("%d", &arrays_size);;
+  scanf("%d", &arrays_size);
   Array<ssize_t> first;
   Array<ssize_t> second;
   read_int_array(arrays_size, first);
