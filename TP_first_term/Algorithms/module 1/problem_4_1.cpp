@@ -39,7 +39,7 @@ void Queue::grow() {
   size_t new_capacity = std::max(_capacity * GROW_FACTOR, DEFAULT_CAPACITY);
   size_t new_tail = 0;
   ssize_t* new_buffer = new ssize_t[new_capacity];
-  if (_head == 0) {
+  if (_head <= _tail) {
     for (size_t i = 0; i < _tail; ++i) {
       new_buffer[i] = _buffer[i];
       ++new_tail;
@@ -60,19 +60,19 @@ void Queue::grow() {
 }
 
 void Queue::enqueue(const ssize_t& value) {
-  if (full()) {
+  if ((_tail + 1) % _capacity == _head) {
     grow();
   }
-  _buffer[_tail] = value;
-  _tail = (_tail + 1) % _capacity;
+  _buffer[_tail++] = value;
+  _tail %= _capacity;
 }
 
 ssize_t Queue::dequeue() {
-  if (empty()) {
+  if (_head == _tail) {
     return EMPTY_DEQUEUE;
   }
-  ssize_t result = _buffer[_head];
-  _head = (_head + 1) % _capacity;
+  ssize_t result = _buffer[_head++];
+  _head %= _capacity;
   return result;
 }
 
@@ -106,12 +106,11 @@ int main() {
   bool all = true;
   for (size_t i = 0; i < commands_number; ++i) {
     read_key_value(key, value);
-    all &= interpret_input(key, value, queue);
+    if (!interpret_input(key, value, queue)) {
+      printf("NO");
+      return 0;
+    }
   }
-  if (all) {
-    printf("YES");
-  } else {
-    printf("NO");
-  }
+  printf("YES");
   return 0;
 }
