@@ -93,6 +93,10 @@ bool interpret_input(const size_t& key, const ssize_t& value, Queue& queue) {
       queue.enqueue(value);
       break;
     }
+    default: {
+      outcome = false;
+      break;
+    }
   }
   return outcome;
 }
