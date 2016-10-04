@@ -85,7 +85,6 @@ bool interpret_input(const size_t& key, const ssize_t& value, Queue& queue) {
   bool outcome = true;
   switch(key) {
     case DEQUEUE_KEY: {
-      ssize_t popped = queue.dequeue();
       outcome &= (queue.dequeue() == value);
       break;
     }
