@@ -64,7 +64,7 @@ void find_max_sum_indices(Array<ssize_t>& a_array, Array<ssize_t>& b_array) {
   size_t b_max_index = 0;
   size_t current_a_max_index = 0;
   for (size_t i = 1; i < b_array.size(); ++i) {
-    if (a_array[i] > a_array[a_max_index]) {
+    if (a_array[i] > a_array[current_a_max_index]) {
       current_a_max_index = i;
     }
     if (a_array[current_a_max_index] + b_array[i] > a_array[a_max_index] + b_array[b_max_index]) {
