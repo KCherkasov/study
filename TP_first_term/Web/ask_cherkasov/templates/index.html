@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <p class="text-muted">Отсортировать вопросы</p>
+    <div class="form-horizontal" align="center">
+      <button class="btn btn-primary" type="submit" onclick="window.location.href='#'">По дате</button>
+      <button class="btn btn-primary" type="submit" onclick=window.location.href='#'">По рейтингу</button>
+    </div>
+  </div>
+  {% for i in range(10) %}
+    <div class="question question-{% if forloop-counter|divisibleby:2 %}white{% else %}gray{% endif %}">
+      <div class="question-info">
+        <div class="question-userpic-container">
+          <img src="../uploads/avatars/user-noavatar.gif" class="userpic" alt="Аватар пользователя по умолчанию" />
+        </div>
+        <div class="small"> Имя пользователя </div>
+      </div>
+      <div class="question-data">
+        <div class="question-title">
+          <a href="{% url 'question' %}">Тема вопроса</a>
+        </div>
+        <p class="question-text">Подробный текст вопроса</p>
+      </div>
+      <div class="question-controls">
+        
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
