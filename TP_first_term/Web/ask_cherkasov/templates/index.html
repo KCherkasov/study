@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Главная{% endblock %}
 
@@ -11,7 +11,7 @@
     </div>
   </div>
   {% for i in range(10) %}
-    <div class="question question-{% if forloop-counter|divisibleby:2 %}white{% else %}gray{% endif %}">
+    <div class="question question-{% if forloop-counter|divisibleby:2 %}white{% else %}grey{% endif %}">
       <div class="question-info">
         <div class="question-userpic-container">
           <img src="../uploads/avatars/user-noavatar.gif" class="userpic" alt="Аватар пользователя по умолчанию" />
@@ -25,8 +25,24 @@
         <p class="question-text">Подробный текст вопроса</p>
       </div>
       <div class="question-controls">
-        
+        <div class="question-vote">
+          <a class="btn btn-xs btn-danger" {% if not test-auth %} disabled="disabled" {% endif %}><span class="glyphicon glyphicon-thumbs-down"></span></a>
+          <span class="question-vote-count"> {{ 0123456789|make_list|random }} </span>
+          <a class="btn btn-xs btn-success" {% if not test-auth %} disabled="disabled" {% endif %}><span class="glyphicon glyphicon-thumbs-up"></span></a>
+        </div>
+        <div class="question-ansref">
+          <a href="{% url 'question'%}">Ответы({{ 0123456789|make_list|random }})</a>
+        </div>
+        <div class="tags question-tags">
+          {% for i in tags_count %}
+            {{ 012345|make_list|random as tag_color }}
+            <a href="#" class="tags-tag tags-tag-{% if tag_color == '0' %}default{% elif tag_color == '1' %}primary{% elif tag_color == '2' %}success{% elif tag_color == '3' %}info{% elif tag_color == '4' %}danger{% else %}warning{% endif %}">Тег {{ i }}</a>
+          {% endfor %}
+        </div>
       </div>
     </div>
   {% endfor %}
+
+  {% include 'paginator.html' with pages=7 %}
+
 {% endblock %}
