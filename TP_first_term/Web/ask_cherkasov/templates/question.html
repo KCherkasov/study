@@ -1,29 +1,32 @@
 {% extends 'base.html' %}
 
+{% block title %}Тема вопроса{% endblock %}
+
 {% block content %}
   <div class="question question-noborder">
     <div class="question-info">
       <div class="question-userpic-container">
-        <img src="../uploads/avatars/user-noavatar.gif" class="userpic" alt="Аватар пользователя по умолчанию" />
+        <img src="../uploads/avatars/user-noavatar.gif" class="userpic" alt="Аватар пользователя по умолчанию" />      
+        <div class="small"> Имя пользователя </div>
       </div>
-      <div class="small"> Имя пользователя </div>
-    </div>
-    <div class="question-data">
-      <div class="question-title-big">
-        Тема вопроса
+      <div class="question-data">
+        <div class="question-title-big">
+          Тема вопроса
+        </div>
+        <p class="question-text">Подробный текст вопроса</p>
       </div>
-      <p class="question-text">Подробный текст вопроса</p>
     </div>
     <div class="question-controls">
       <div class="question-vote">
-        <a class="btn btn-xs btn-danger" {% if not test-auth %} disabled="disabled" {% endif %}><span class="glyphicon glyphicon-thumbs-down"></span></a>
+        <a class="btn btn-xs btn-danger" {% if not test_auth %} disabled="disabled" {% endif %}><span class="glyphicon glyphicon-thumbs-down"></span></a>
         <span class="question-vote-count"> {{ 0123456789|make_list|random }} </span>
-        <a class="btn btn-xs btn-success" {% if not test-auth %} disabled="disabled" {% endif %}><span class="glyphicon glyphicon-thumbs-up"></span></a>
+        <a class="btn btn-xs btn-success" {% if not test_auth %} disabled="disabled" {% endif %}><span class="glyphicon glyphicon-thumbs-up"></span></a>
       </div>
       <div class="tags question-tags">
         {% for i in tags_count %}
-          {{ 012345|make_list|random as tag_color }}
+          {% with tag_color=012345|make_list|random %}
           <a href="#" class="tags-tag tags-tag-{% if tag_color == '0' %}default{% elif tag_color == '1' %}primary{% elif tag_color == '2' %}success{% elif tag_color == '3' %}info{% elif tag_color == '4' %}danger{% else %}warning{% endif %}">Тег {{ i }}</a>
+          {% endwith %}
         {% endfor %}
       </div>
     </div>
@@ -34,20 +37,20 @@
           <div class="answer-info">
             <div class="answer-userpic-container">
               <img src="../uploads/avatars/user-noavatar.gif" class="userpic" alt="Аватар пользователя по умолчанию" />
+              <div class="small">Имя пользователя</div>
             </div>
-            <div class="small">Имя пользователя</div>
-          </div>
-          <div class="answer-data">
-            <p class="answer-text">Текст ответа {{ answer }}</p>
+            <div class="answer-data">
+              <p class="answer-text">Текст ответа {{ answer }}</p>
+            </div>
           </div>
           <div class="answer-controls">
             <div class="answer-vote">
-              <a class="btn btn-xs btn-danger" {% if not test-auth %} disabled="disabled"{% endif %}><span class="glyphicon glyphicon-thumbs-down"></span></a>
-              <span class="answer-vote-count"> {{ 0123456789|make_list|random }} </span>
-              <a class="btn btn-xs btn-success" {% if not test-auth %} disabled="disabled"{% endif %}><span class="glyphicon glyphicon-thumbs-up"></span></a>
+              <a class="btn btn-xs btn-danger" {% if not test_auth %} disabled="disabled"{% endif %}><span class="glyphicon glyphicon-thumbs-down"></span></a>
+              <span class="answer-vote-count"> {{ '0123456789'|make_list|random }} </span>
+              <a class="btn btn-xs btn-success" {% if not test_auth %} disabled="disabled"{% endif %}><span class="glyphicon glyphicon-thumbs-up"></span></a>
             </div>
             <div class="answer-correct">
-              <a class="btn btn-large {% if answer == correct %}answer-btn-correct{% else %}answer-btn-wrong{% endif %}" {% if author_auth %}disabled="disabled"{% endif %}><span class="glyphicon glyphicon-ok">Правильный</span></a>
+              <a class="btn btn-large {% if answer == correct %}answer-btn-correct{% else %}answer-btn-wrong{% endif %}" {% if not author_auth %}disabled="disabled"{% endif %}><span class="glyphicon glyphicon-ok">Правильный</span></a>
             </div>
           </div>
         </div>
